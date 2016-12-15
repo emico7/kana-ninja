@@ -2,9 +2,29 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title></title>
+        <title>Kana Ninja - You will learn how to read Japanese characters like a ninja!</title>
+        <link rel="stylesheet" type="text/css" href="styles/index.css">
     </head>
     <body>
         <!-- Build wireframe here! -->
+        <div>
+            <div class="container">
+                <div class="instruction">
+                    <p>Click on each letter to hear a sound</p>
+                </div>
+                <div class="row1">
+                    <div class="letter" data-audio="1_a">あ</div>
+                    <div class="letter" data-audio="3_u">う</div>
+                    <div class="letter" data-audio="5_o">お</div>
+                </div>
+                <div class="row2">
+                    <div class="letter" data-audio="2_i">い</div>
+                    <div class="letter" data-audio="4_e">え</div>
+                </div>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/buzz/1.2.0/buzz.min.js"></script>
+        <script src="scripts/main.js"></script>
     </body>
 </html>
