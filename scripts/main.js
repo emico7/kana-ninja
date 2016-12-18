@@ -8,6 +8,43 @@
 
 // $(document).ready(function() {
 // });
+
+// Game object
+// score
+
+// Level
+// characters
+// exercises
+
+// Exercise object
+// image
+// answer
+// characters
+
+function Exercise(image, answer, characters) {
+    this.image = image;
+    this.answer = answer;
+    this.characters = characters;
+}
+
+// var currentExercise = new Exercise("house.jpg",  )
+
+// Character object
+// text
+// audio file
+
+function Character(text, audioFile) {
+    this.text = text;
+    this.audioFile = new buzz.sound("assets/audio/" + audioFile, {
+        formats: [ 'm4a' ],
+        preload: true
+    });
+}
+
+var characters = [];
+var myCharacter = new Character("あ", "1_a");
+console.log(myCharacter);
+
 $(document).ready(function() {
     console.log("loaded");
 });
