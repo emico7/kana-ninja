@@ -14,6 +14,19 @@ body {
     margin-right: auto;
 }
 
+.image {
+    text-align: center;
+}
+
+.button {
+    font-size: 15px;
+    display: inline-block;
+    margin: 20px;
+    background-color: #ffffcc;
+    padding: 15px;
+    border-radius: 15px;
+}
+
 .row1 .letter {
     display: inline-block;
     margin: 80px;

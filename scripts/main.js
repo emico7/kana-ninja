@@ -13,40 +13,70 @@
 // score
 
 // Level
-// characters
+// letters
 // exercises
 
 // Exercise object
 // image
 // answer
-// characters
+// letters
 
-function Exercise(image, answer, characters) {
+function Game(levels) {
+    this.levels = levels;
+}
+
+function Level(prep, exercise, letters) {
+    this.prep = prep;
+    this.exercise = exercise;
+    this.letters = letters;
+}
+
+function Prep(level, letters) {
+    this.level = level;
+    this.letters = letters;
+}
+
+function Exercise(questions) {
+    this.questions = questions;
+}
+
+function Question(image, answer, letters) {
     this.image = image;
     this.answer = answer;
-    this.characters = characters;
+    this.letters = letters;
 }
 
 // var currentExercise = new Exercise("house.jpg",  )
 
-// Character object
-// text
+// letter object
+// letter
 // audio file
 
-function Character(text, audioFile) {
-    this.text = text;
+function letter(letter, audioFile) {
+    this.letter = letter;
     this.audioFile = new buzz.sound("assets/audio/" + audioFile, {
         formats: [ 'm4a' ],
         preload: true
     });
 }
 
-var characters = [];
-var myCharacter = new Character("あ", "1_a");
-console.log(myCharacter);
+var letters = [];
+var letter1 = new letter("あ", "1_a");
+var letter2 = new letter("い", "2_i");
+var letter3 = new letter("う", "3_u");
+var letter4 = new letter("え", "4_e");
+var letter5 = new letter("お", "5_o");
+
+$('letter').html(letter);
+
+var currentQuestion = new Question("assets/images/house.jpg", ['い', 'え'], [letter1, letter2, letter3, letter4, letter5])
 
 $(document).ready(function() {
     console.log("loaded");
+    // randomly sort the letters
+    // for each letter in the question letters array
+    // build an html template
+    // and insert it into the page
 });
 
 var $letter = $('.letter');
@@ -60,8 +90,22 @@ $letter.click(function() {
         formats: [ 'm4a' ],
         preload: true
     });
-    console.log(sound);
+
     // play the sound
 
     sound.play();
+
+    console.log(this);
+
+    userAnswer = userAnswer.push($(this).text());
+    console.log(userAnswer);
 });
+
+//Set a correct answer
+var correctAnswer = ['い', 'え'];
+
+//Create user's answer
+var userAnswer = [];
+
+//React acording to a given answer
+//store answer
