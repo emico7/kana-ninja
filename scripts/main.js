@@ -68,6 +68,13 @@ var letters = [
     new letter("お", "5_o")
 ];
 
+// var letters = [];
+// var letter1 = new letter("あ", "1_a");
+// var letter2 = new letter("い", "2_i");
+// var letter3 = new letter("う", "3_u");
+// var letter4 = new letter("え", "4_e");
+// var letter5 = new letter("お", "5_o");
+
 var currentQuestion = new Question("assets/images/house.jpg", [letters[1], letters[3]], letters);
 
 //
@@ -82,9 +89,6 @@ var buildLetterButtonTemplate = function(letter, index) {
 
 // //Set a correct answer
 // var correctAnswer = ['い', 'え'];
-
-//Create user's answer
-var userAnswer = [];
 
 //React acording to a given answer
 //store answer
@@ -104,31 +108,38 @@ function setQuestionImage() {
 }
 
 $(document).ready(function() {
-    console.log("Current answer: " + currentQuestion.answer);
-
     setQuestionImage();
     createLetterButtons();
 
     var $currentLetter = $('.letter-button');
-
+    var $userAnswer = $('.user-answer');
     //
     //Cliking an icon trigger the sound to play
     //
+
+    var userAnswerArr = [];
+
     $currentLetter.click(function() {
 
         var letterIndex = $(this).data("index");
         var clickedLetter = currentQuestion.letters[letterIndex];
         clickedLetter.audioFile.play();
 
-        userAnswer.push(clickedLetter.letter)
+        userAnswerArr.push(clickedLetter.letter)
+        $userAnswer.append(clickedLetter.letter);
+
+        // console.log(userAnswerArr === currentQuestion.answer);
+
     });
 
     $('.submit-button').click(function() {
-        if (userAnswer === currentQuestion.answer) {
+        console.log("user: " + userAnswerArr);
+        console.log("answer: " + currentQuestion.answer);
+
+        if (currentQuestion.answer === userAnswerArr) {
             alert("Correct!!");
         } else {
             alert("Wrong...");
         }
-        console.log("User answer: " + userAnswer);
     });
 });
