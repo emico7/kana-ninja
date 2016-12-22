@@ -60,52 +60,75 @@ function letter(letter, audioFile) {
     });
 }
 
-var letters = [];
-var letter1 = new letter("あ", "1_a");
-var letter2 = new letter("い", "2_i");
-var letter3 = new letter("う", "3_u");
-var letter4 = new letter("え", "4_e");
-var letter5 = new letter("お", "5_o");
+var letters = [
+    new letter("あ", "1_a"),
+    new letter("い", "2_i"),
+    new letter("う", "3_u"),
+    new letter("え", "4_e"),
+    new letter("お", "5_o")
+];
 
-$('letter').html(letter);
+var currentQuestion = new Question("assets/images/house.jpg", [letters[1], letters[3]], letters);
 
-var currentQuestion = new Question("assets/images/house.jpg", ['い', 'え'], [letter1, letter2, letter3, letter4, letter5])
+//
+//Template for letter buttons
+//
+var buildLetterButtonTemplate = function(letter, index) {
+    var template = '<div class="letter-button" data-index="' + index + '">' + letter.letter + '</div>'
 
-$(document).ready(function() {
-    console.log("loaded");
-    // randomly sort the letters
-    // for each letter in the question letters array
-    // build an html template
-    // and insert it into the page
-});
+    return $(template)
+};
 
-var $letter = $('.letter');
 
-$letter.click(function() {
-    // read the audio data property
-    var audioFileName = $(this).data("audio");
-
-    // create a buzz sound with the audio file
-    var sound = new buzz.sound("assets/audio/" + audioFileName, {
-        formats: [ 'm4a' ],
-        preload: true
-    });
-
-    // play the sound
-
-    sound.play();
-
-    console.log(this);
-
-    userAnswer = userAnswer.push($(this).text());
-    console.log(userAnswer);
-});
-
-//Set a correct answer
-var correctAnswer = ['い', 'え'];
+// //Set a correct answer
+// var correctAnswer = ['い', 'え'];
 
 //Create user's answer
 var userAnswer = [];
 
 //React acording to a given answer
 //store answer
+
+function createLetterButtons() {
+    var $letterContainer = $('.letter-container');
+    var num = currentQuestion.letters.length;
+    for (var i = 0; i < num; i++) {
+        var $newLetterButton = buildLetterButtonTemplate(currentQuestion.letters[i], i);
+        $letterContainer.append($newLetterButton);
+    }
+}
+
+function setQuestionImage() {
+    var $questionImage = $('.question-image');
+    $questionImage.attr("src", currentQuestion.image);
+}
+
+$(document).ready(function() {
+    console.log("Current answer: " + currentQuestion.answer);
+
+    setQuestionImage();
+    createLetterButtons();
+
+    var $currentLetter = $('.letter-button');
+
+    //
+    //Cliking an icon trigger the sound to play
+    //
+    $currentLetter.click(function() {
+
+        var letterIndex = $(this).data("index");
+        var clickedLetter = currentQuestion.letters[letterIndex];
+        clickedLetter.audioFile.play();
+
+        userAnswer.push(clickedLetter.letter)
+    });
+
+    $('.submit-button').click(function() {
+        if (userAnswer === currentQuestion.answer) {
+            alert("Correct!!");
+        } else {
+            alert("Wrong...");
+        }
+        console.log("User answer: " + userAnswer);
+    });
+});

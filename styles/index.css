@@ -12,33 +12,34 @@ body {
     max-width: 900px;
     margin-left: auto;
     margin-right: auto;
+    text-align: center;
 }
 
 .image {
     text-align: center;
 }
 
-.button {
+.submit-button {
     font-size: 15px;
     display: inline-block;
-    margin: 20px;
+    margin-bottom: 50px;
     background-color: #ffffcc;
     padding: 15px;
     border-radius: 15px;
 }
 
-.row1 .letter {
+.letter-button {
     display: inline-block;
-    margin: 80px;
+    margin: 40px;
     background-color: #E7E7E7;
     padding: 15px;
     border-radius: 15px;
 }
 
-.row2 .letter {
+/*.row2 .letter {
     display: inline-block;
     margin: 120px;
     background-color: #E7E7E7;
     padding: 15px;
     border-radius: 15px;
-}
+}*/
