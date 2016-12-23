@@ -60,22 +60,22 @@ function letter(letter, audioFile) {
     });
 }
 
-var letters = [
-    new letter("あ", "1_a"),
-    new letter("い", "2_i"),
-    new letter("う", "3_u"),
-    new letter("え", "4_e"),
-    new letter("お", "5_o")
-];
+// var letters = [
+//     new letter("あ", "1_a"),
+//     new letter("い", "2_i"),
+//     new letter("う", "3_u"),
+//     new letter("え", "4_e"),
+//     new letter("お", "5_o")
+// ];
 
-// var letters = [];
-// var letter1 = new letter("あ", "1_a");
-// var letter2 = new letter("い", "2_i");
-// var letter3 = new letter("う", "3_u");
-// var letter4 = new letter("え", "4_e");
-// var letter5 = new letter("お", "5_o");
+var letters = [];
+var letter1 = new letter("あ", "1_a");
+var letter2 = new letter("い", "2_i");
+var letter3 = new letter("う", "3_u");
+var letter4 = new letter("え", "4_e");
+var letter5 = new letter("お", "5_o");
 
-var currentQuestion = new Question("assets/images/house.jpg", [letters[1], letters[3]], letters);
+var currentQuestion = new Question("assets/images/house.jpg", [letter2.letter, letter4.letter], [letter1, letter2, letter3, letter4, letter5]);
 
 //
 //Template for letter buttons
@@ -107,6 +107,21 @@ function setQuestionImage() {
     $questionImage.attr("src", currentQuestion.image);
 }
 
+//
+//function to check equality of 2 arrays
+//
+function isArraysEqual(a, b) {
+    if (a === b) return true;
+    if (a == null || b == null) return false;
+    if (a.length != b.length) return false;
+
+    for (var i = 0; i < a.length; i++) {
+        if (a[i] !== b[i]) return false;
+    }
+    return true;
+}
+
+
 $(document).ready(function() {
     setQuestionImage();
     createLetterButtons();
@@ -136,7 +151,7 @@ $(document).ready(function() {
         console.log("user: " + userAnswerArr);
         console.log("answer: " + currentQuestion.answer);
 
-        if (currentQuestion.answer === userAnswerArr) {
+        if (isArraysEqual(currentQuestion.answer, userAnswerArr)) {
             alert("Correct!!");
         } else {
             alert("Wrong...");
