@@ -171,9 +171,15 @@ $(document).ready(function() {
         console.log("answer: " + currentQuestion.answer);
 
         if (isArraysEqual(currentQuestion.answer, userAnswerArr)) {
-            alert("Correct!!");
+            $(".result-text").html("Correct!");
         } else {
-            alert("Wrong...");
+            $(".result-text").html("Wrong...");
         }
+
+        $("#answer-result-modal").show();
+    });
+
+    $(".close").click(function() {
+        $("#answer-result-modal").hide();
     });
 });
