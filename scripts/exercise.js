@@ -40,11 +40,21 @@ function Exercise(questions) {
     this.questions = questions;
 }
 
+function Image(imageFile, audioFile) {
+    this.imageFile = "assets/images/" + imageFile;
+    this.audioFile = new buzz.sound("assets/audio/" + audioFile, {
+        formats: [ 'm4a' ],
+        preload: true
+    });
+}
+
 function Question(image, answer, letters) {
     this.image = image;
     this.answer = answer;
     this.letters = letters;
 }
+
+
 
 // var currentExercise = new Exercise("house.jpg",  )
 
@@ -68,14 +78,19 @@ function Letter(letter, audioFile) {
 //     new letter("お", "5_o")
 // ];
 
+var letters = [];
 var letter1 = new Letter("あ", "1_a");
 var letter2 = new Letter("い", "2_i");
 var letter3 = new Letter("う", "3_u");
 var letter4 = new Letter("え", "4_e");
 var letter5 = new Letter("お", "5_o");
-var letters = [letter1, letter2, letter3, letter4, letter5];
 
-var currentPrep = new Prep(1, letters);
+//
+//creates a new image for this Question
+//
+var image1 = new Image("house.jpg", "house");
+
+var currentQuestion = new Question(image1.imageFile, [letter2.letter, letter4.letter], [letter1, letter2, letter3, letter4, letter5]);
 
 //
 //Template for letter buttons
@@ -95,24 +110,70 @@ var buildLetterButtonTemplate = function(letter, index) {
 
 function createLetterButtons() {
     var $letterContainer = $('.letter-container');
-    for (var i = 0; i < letters.length; i++) {
-        var $newLetterButton = buildLetterButtonTemplate(currentPrep.letters[i], i);
+    var num = currentQuestion.letters.length;
+    for (var i = 0; i < num; i++) {
+        var $newLetterButton = buildLetterButtonTemplate(currentQuestion.letters[i], i);
         $letterContainer.append($newLetterButton);
     }
 }
 
+function setQuestionImage() {
+    var $questionImage = $('.question-image');
+    $questionImage.attr("src", currentQuestion.image);
+}
+
+//
+//function to check equality of 2 arrays
+//
+function isArraysEqual(a, b) {
+    if (a === b) return true;
+    if (a == null || b == null) return false;
+    if (a.length != b.length) return false;
+
+    for (var i = 0; i < a.length; i++) {
+        if (a[i] !== b[i]) return false;
+    }
+    return true;
+}
+
+
 $(document).ready(function() {
+    setQuestionImage();
     createLetterButtons();
 
     var $currentLetter = $('.letter-button');
+    var $userAnswer = $('.user-answer');
     //
     //Cliking an icon trigger the sound to play
     //
 
+    var userAnswerArr = [];
+
     $currentLetter.click(function() {
 
         var letterIndex = $(this).data("index");
-        var clickedLetter = currentPrep.letters[letterIndex];
-        clickedLetter.audioFile.play();
+        var clickedLetter = currentQuestion.letters[letterIndex];
+        // clickedLetter.audioFile.play();
+
+        userAnswerArr.push(clickedLetter.letter)
+        $userAnswer.append(clickedLetter.letter);
+
+        // console.log(userAnswerArr === currentQuestion.answer);
+
+    });
+
+    $(".question-image").click(function() {
+        image1.audioFile.play();
+    });
+
+    $('.submit-button').click(function() {
+        console.log("user: " + userAnswerArr);
+        console.log("answer: " + currentQuestion.answer);
+
+        if (isArraysEqual(currentQuestion.answer, userAnswerArr)) {
+            alert("Correct!!");
+        } else {
+            alert("Wrong...");
+        }
     });
 });
