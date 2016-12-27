@@ -40,12 +40,14 @@ function Exercise(questions) {
     this.questions = questions;
 }
 
-function Image(imageFile, audioFile) {
+function Image(imageFile, audioFile, translation) {
     this.imageFile = "assets/images/" + imageFile;
     this.audioFile = new buzz.sound("assets/audio/" + audioFile, {
         formats: [ 'm4a' ],
         preload: true
     });
+    this.translation = translation;
+
 }
 
 function Question(image, answer, letters) {
@@ -88,7 +90,7 @@ var letter5 = new Letter("お", "5_o");
 //
 //creates a new image for this Question
 //
-var image1 = new Image("house.jpg", "house");
+var image1 = new Image("house.jpg", "house", "house");
 
 var currentQuestion = new Question(image1.imageFile, [letter2.letter, letter4.letter], [letter1, letter2, letter3, letter4, letter5]);
 
@@ -118,8 +120,8 @@ function createLetterButtons() {
 }
 
 function setQuestionImage() {
-    var $questionImage = $('.question-image');
-    $questionImage.attr("src", currentQuestion.image);
+    $('.question-image').attr("src", currentQuestion.image);
+    $('.image-translation').html('(' + image1.translation + ')')
 }
 
 //
