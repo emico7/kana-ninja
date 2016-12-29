@@ -72,28 +72,33 @@ function Letter(letter, audioFile) {
     });
 }
 
-// var letters = [
-//     new letter("あ", "1_a"),
-//     new letter("い", "2_i"),
-//     new letter("う", "3_u"),
-//     new letter("え", "4_e"),
-//     new letter("お", "5_o")
-// ];
+var letters = [
+    new Letter("あ", "1_a"),
+    new Letter("い", "2_i"),
+    new Letter("う", "3_u"),
+    new Letter("え", "4_e"),
+    new Letter("お", "5_o")
+];
 
-var letters = [];
-var letter1 = new Letter("あ", "1_a");
-var letter2 = new Letter("い", "2_i");
-var letter3 = new Letter("う", "3_u");
-var letter4 = new Letter("え", "4_e");
-var letter5 = new Letter("お", "5_o");
+// var letters = [];
+// var letter1 = new Letter("あ", "1_a");
+// var letter2 = new Letter("い", "2_i");
+// var letter3 = new Letter("う", "3_u");
+// var letter4 = new Letter("え", "4_e");
+// var letter5 = new Letter("お", "5_o");
 
 //
 //creates a new image for this Question
 //
 var image1 = new Image("house.jpg", "house", "house");
 
-var currentQuestion = new Question(image1.imageFile, [letter2.letter, letter4.letter], [letter1, letter2, letter3, letter4, letter5]);
+var currentQuestion = new Question(image1.imageFile, [letters[1], letters[3]], letters);
 
+// how can we define a bunch of questions/levels in a json file?
+// and then write a function to display any of them
+function setQuestion(question) {
+
+}
 //
 //Template for letter buttons
 //
@@ -157,7 +162,7 @@ $(document).ready(function() {
         var clickedLetter = currentQuestion.letters[letterIndex];
         // clickedLetter.audioFile.play();
 
-        userAnswerArr.push(clickedLetter.letter)
+        userAnswerArr.push(clickedLetter)
         $userAnswer.append(clickedLetter.letter);
 
         // console.log(userAnswerArr === currentQuestion.answer);
